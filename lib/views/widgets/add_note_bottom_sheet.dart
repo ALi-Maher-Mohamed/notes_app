@@ -9,28 +9,68 @@ class AddNoteBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: 24.0,
-          horizontal: 16,
-        ),
-        child: Column(
-          children: [
-            CustomTextField(hint: 'Title'),
-            SizedBox(
-              height: 16,
-            ),
-            CustomTextField(
-              hint: 'Content',
-              maxLines: 4,
-            ),
-            SizedBox(
-              height: 100,
-            ),
-            CustomButton()
-          ],
-        ),
+    return const Padding(
+      padding: EdgeInsets.symmetric(
+        vertical: 24.0,
+        horizontal: 16,
+      ),
+      child: SingleChildScrollView(
+        child: AddNoteForm(),
+      ),
+    );
+  }
+}
+
+class AddNoteForm extends StatefulWidget {
+  const AddNoteForm({
+    super.key,
+  });
+
+  @override
+  State<AddNoteForm> createState() => _AddNoteFormState();
+}
+
+class _AddNoteFormState extends State<AddNoteForm> {
+  final GlobalKey<FormState> formKey = GlobalKey();
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  String? title, subTitle;
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: formKey,
+      autovalidateMode: autovalidateMode,
+      child: Column(
+        children: [
+          CustomTextField(
+            hint: 'Title',
+            onSaved: (value) {
+              value = title;
+            },
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          CustomTextField(
+            onSaved: (value) {
+              value = subTitle;
+            },
+            hint: 'Content',
+            maxLines: 4,
+          ),
+          const SizedBox(
+            height: 100,
+          ),
+          CustomButton(
+            onTap: () {
+              if (formKey.currentState!.validate()) {
+                formKey.currentState!.save();
+              } else {
+                autovalidateMode = AutovalidateMode.always;
+                setState(() {});
+              }
+            },
+          )
+        ],
       ),
     );
   }
