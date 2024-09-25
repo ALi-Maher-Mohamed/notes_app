@@ -2,21 +2,21 @@ import 'package:bloc/bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 import 'package:note_app/helper/constant.dart';
-import 'package:note_app/views/widgets/cutom_note_item.dart';
+import 'package:note_app/models/note_models.dart';
 
 part 'add_note_state.dart';
 
 class AddNoteCubit extends Cubit<AddNoteState> {
   AddNoteCubit() : super(AddNoteInitial());
 
-  addNote(NoteItem note) async {
+  addNote(NoteModel note) async {
     emit(AddNoteLoading());
     try {
-      var noteBox = Hive.box(kNotesBox);
-      emit(AddNoteSucces());
+      var noteBox = Hive.box<NoteModel>(kNotesBox);
       await noteBox.add(note);
+      emit(AddNoteSucces());
     } catch (e) {
-      AddNoteFailure(e.toString());
+      emit(AddNoteFailure(e.toString()));
     }
   }
 }
