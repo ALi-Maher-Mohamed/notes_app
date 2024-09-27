@@ -19,13 +19,6 @@ class _NotesViewBodyState extends State<NotesViewBody> {
     super.initState();
   }
 
-  final data = const [
-    Color(0xffFFCE7F),
-    Color(0xffE7E89A),
-    Color(0xff76D6EC),
-    Color(0xffD89CDA),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return const Padding(
