@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class CustomIcon extends StatelessWidget {
   const CustomIcon({super.key, required this.icon, this.onPressed});

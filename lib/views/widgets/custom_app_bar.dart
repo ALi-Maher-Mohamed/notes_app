@@ -14,7 +14,7 @@ class CustomAppBar extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(fontSize: 28, color: Colors.white),
+          style: const TextStyle(fontSize: 28, color: Colors.white),
         ),
         CustomIcon(
           onPressed: onPressed,
